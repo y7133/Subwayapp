@@ -30,13 +30,6 @@
                 android:selectAllOnFocus="true"
                 android:text="역을 입력하세요" />
 
-            <Button
-                android:id="@+id/findStationBtn"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="5"
-                android:text="찾기" />
-
         </LinearLayout>
 
         <LinearLayout

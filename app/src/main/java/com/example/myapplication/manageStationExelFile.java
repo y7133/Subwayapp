@@ -13,6 +13,9 @@ import jxl.Cell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.read.biff.BiffException;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
 
 class Station{
     String RAIL_OPR_ISTT_CD;
@@ -50,8 +53,17 @@ class Transfer{
 public class manageStationExelFile extends AppCompatActivity {
     private InputStream is;
     private Workbook wb;
+
+    private InputStream is2;
+    private Workbook wb2;
+
+    private InputStream is3;
+    private Workbook wb3;
+
     private Sheet sheet1;
     private Sheet sheet2;
+    private Sheet sheet3;
+    private WritableSheet wSheet;
 
     public void openExel(Activity activity){
         try {
@@ -62,6 +74,8 @@ public class manageStationExelFile extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+
     public void openExel(Activity activity,int sheetNum){
         try {
             is = activity.getBaseContext().getResources().getAssets().open("transfer.xls");
@@ -70,6 +84,44 @@ public class manageStationExelFile extends AppCompatActivity {
         } catch (IOException | BiffException e) {
             e.printStackTrace();
         }
+    }
+
+    public void openExel(Activity activity,String path){
+        try {
+            is3 = activity.getBaseContext().getResources().getAssets().open(path+".xls");
+            wb3=Workbook.getWorkbook(is3);
+            sheet3=wb3.getSheet(0);
+        } catch (IOException | BiffException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<Station> findStation(){
+        if(sheet3==null) {
+            return null;
+        }
+        int row=sheet3.getRows();
+        ArrayList<Station> stationList=new ArrayList<>();
+
+        Cell cell;
+        String temp;
+
+        int i=1;
+        do{
+            cell=sheet3.getCell(5,i);
+            temp=cell.getContents();
+            if(temp=="")
+                break;;
+            Station station=new Station(sheet3.getCell(0,i).getContents(),sheet3.getCell(1,i).getContents(),
+                    sheet3.getCell(2,i).getContents(),sheet3.getCell(3,i).getContents(),
+                    sheet3.getCell(4,i).getContents(), sheet3.getCell(5,i).getContents());
+            stationList.add(station);
+
+            i++;
+        }while(i<row);
+
+        return stationList;
+
     }
 
     public ArrayList<Station> findStation(String keyword){

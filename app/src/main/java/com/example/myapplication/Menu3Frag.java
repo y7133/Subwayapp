@@ -6,6 +6,7 @@ import android.icu.lang.UCharacter;
 import android.os.Bundle;
 import android.service.autofill.TextValueSanitizer;
 import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -29,30 +30,40 @@ public class Menu3Frag extends Fragment{
     }
 
     LinearLayout stationListLayout;
-    Button findStationBtn;
     EditText stationKeyText;
+    ArrayList<Station> station;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstaceState) {
         final View view = inflater.inflate(R.layout.fragment_menu3_frag_weather, null); // Fragment로 불러올 xml파일을 view로 가져옵니다.
 
         stationListLayout=(LinearLayout)view.findViewById(R.id.stationList);
-        findStationBtn=(Button)view.findViewById(R.id.findStationBtn);
         stationKeyText=(EditText)view.findViewById(R.id.stationKey);
 
-        findStationBtn.setOnClickListener(new Button.OnClickListener(){
+        stationKeyText.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
                 stationListLayout.removeAllViews();
-                String stationKey=stationKeyText.getText().toString();
-                if(stationKey=="")
+                String str=stationKeyText.getText().toString();
+
+                if(str.equals(""))
                     return;
 
-                manageStationExelFile f=new manageStationExelFile();
-                f.openExel(getActivity());
-                final ArrayList<Station> stationList=f.findStation(stationKey);
+                manageStationExelFile m=new manageStationExelFile();
+                m.openExel(getActivity());
+                station=m.findStation(str);
 
-                for(int i=0;i<stationList.size();i++){
+                for(int i=0;i<station.size();i++){
                     TextView locationText=new TextView(view.getContext());
                     TextView lineText=new TextView(view.getContext());
                     TextView stationText=new TextView(view.getContext());
@@ -68,13 +79,9 @@ public class Menu3Frag extends Fragment{
                     lineText.setLayoutParams(params);
                     stationText.setLayoutParams(params);
 
-                    final String railOprIsttCd=stationList.get(i).RAIL_OPR_ISTT_NM;
-                    final String lnCd=stationList.get(i).LN_NM;
-                    final String stinCd=stationList.get(i).STIN_NM;
-
-                    locationText.setText(stationList.get(i).RAIL_OPR_ISTT_NM);
-                    lineText.setText(stationList.get(i).LN_NM);
-                    stationText.setText(stationList.get(i).STIN_NM);
+                    locationText.setText(station.get(i).RAIL_OPR_ISTT_NM);
+                    lineText.setText(station.get(i).LN_NM);
+                    stationText.setText(station.get(i).STIN_NM);
 
                     linearLayout.addView(locationText);
                     linearLayout.addView(lineText);
@@ -86,19 +93,19 @@ public class Menu3Frag extends Fragment{
                         @Override
                         public void onClick(View v) {
                             Intent intent=new Intent(getActivity(),StationInfoActivity.class);
-                            intent.putExtra("railOprIsttCd",stationList.get(index).RAIL_OPR_ISTT_CD);
-                            intent.putExtra("lnCd",stationList.get(index).LN_CD);
-                            intent.putExtra("stinCd",stationList.get(index).STIN_CD);
-                            intent.putExtra("stinNm",stationList.get(index).STIN_NM);
+                            intent.putExtra("railOprIsttCd",station.get(index).RAIL_OPR_ISTT_CD);
+                            intent.putExtra("lnCd",station.get(index).LN_CD);
+                            intent.putExtra("stinCd",station.get(index).STIN_CD);
+                            intent.putExtra("stinNm",station.get(index).STIN_NM);
                             startActivity(intent);
                         }
                     });
 
                     stationListLayout.addView(linearLayout);
                 }
-
             }
         });
+
         return view;
     }
 

@@ -1,6 +1,7 @@
 package com.example.myapplication.apiPackage;
 
 import android.util.Log;
+import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -33,7 +34,7 @@ public class StationTimetable {
     public ArrayList<String> tmnStinCd=new ArrayList<String>(); //종착역코드
     public ArrayList<String > trnNo=new ArrayList<String>();    //열차번호
 
-    StationTimetable(String railOprIsttCd, String lnCd, String stinCd, String dayCd) {
+    public StationTimetable(String railOprIsttCd, String lnCd, String stinCd, String dayCd) {
         this.railOprIsttCd = railOprIsttCd;
         this.lnCd = lnCd;
         this.stinCd = stinCd;
@@ -82,4 +83,39 @@ public class StationTimetable {
         });
 
     }
+
+    public void setStationTimetable(TextView textView) {
+        final String url = SERVER_URL + CLASSIFICATION + "/" + INFORMATION +
+                "?serviceKey=" + SERVICE_KEY + "&format=" + FORMAT +
+                "&railOprIsttCd=" + railOprIsttCd + "&lnCd=" + lnCd + "&stinCd=" + stinCd+"&dayCd="+dayCd;
+
+        client.get(url, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.e("StationTimetable","success connect");
+                JSONArray jsonArray= null;
+                try {
+                    jsonArray = response.getJSONArray("body");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        arvTm.add(jsonObject.getInt("arvTm"));
+                        dptTm.add(jsonObject.getInt("dptTm"));
+                        orgStinCd.add(jsonObject.getString("orgStinCd"));
+                        tmnStinCd.add(jsonObject.getString("tmnStinCd"));
+                        trnNo.add(jsonObject.getString("trnNo"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public boolean getUseSynchronousMode(){
+                return false;
+            }
+        });
+
+    }
+
 }
