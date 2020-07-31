@@ -1,6 +1,9 @@
 package com.example.myapplication.apiPackage;
 
+import android.app.Activity;
 import android.util.Log;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -32,7 +35,7 @@ public class TrafficWeekInfo {
     //public ArrayList<String> mvDst = new ArrayList<String>();            //이동거리
     public ArrayList<String> mvContDtl = new ArrayList<String>();        //상세 이동내용
 
-    TrafficWeekInfo(String railOprIsttCd, String lnCd, String stinCd) {
+    public TrafficWeekInfo(String railOprIsttCd, String lnCd, String stinCd) {
         this.railOprIsttCd = railOprIsttCd;
         this.lnCd = lnCd;
         this.stinCd = stinCd;
@@ -73,5 +76,60 @@ public class TrafficWeekInfo {
             }
         });
 
+    }
+
+    public void setTrafficWeekInfo(final Activity activity, final LinearLayout layout1, final LinearLayout layout2) {
+        final String url = SERVER_URL + CLASSIFICATION + "/" + INFORMATION +
+                "?serviceKey=" + SERVICE_KEY + "&format=" + FORMAT +
+                "&railOprIsttCd=" + railOprIsttCd + "&lnCd=" + lnCd + "&stinCd=" + stinCd;
+
+        client.get(url, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                Log.e("TrafficWeekInfo","success connect");
+                JSONArray jsonArray= null;
+                try {
+                    jsonArray = response.getJSONArray("body");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        if("1".equals(jsonObject.get("mvPathDvCd"))){
+                            TextView textView=createTextView(activity,1, (String) jsonObject.get("mvContDtl"));
+                            layout1.addView(textView);
+                        }
+                        else if("3".equals(jsonObject.get("mvPathDvCd"))){
+                            TextView textView=createTextView(activity,1, (String) jsonObject.get("mvContDtl"));
+                            layout2.addView(textView);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public boolean getUseSynchronousMode(){
+                return false;
+            }
+        });
+
+    }
+
+    private LinearLayout createLayout(Activity activity){
+        LinearLayout linearLayout=new LinearLayout(activity);
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        linearLayout.setPadding(0,10,0,10);
+
+        return linearLayout;
+    }
+    private TextView createTextView(Activity activity, float weight, String content){
+        TextView textView=new TextView(activity);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        params.weight = weight;
+        textView.setLayoutParams(params);
+        textView.setText(content);
+        return textView;
     }
 }

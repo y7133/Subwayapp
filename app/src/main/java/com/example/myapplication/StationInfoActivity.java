@@ -14,6 +14,7 @@ import com.example.myapplication.apiPackage.StationElevator;
 import com.example.myapplication.apiPackage.StationGateInfo;
 import com.example.myapplication.apiPackage.StationInfo;
 import com.example.myapplication.apiPackage.StationToilet;
+import com.example.myapplication.apiPackage.TrafficWeekInfo;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -39,6 +40,7 @@ public class StationInfoActivity extends AppCompatActivity implements OnMapReady
     StationDisabledToilet stationDisabledToilet;
     StationElevator stationElevator;
     StationGateInfo stationGateInfo;
+    TrafficWeekInfo trafficWeekInfo;
 
     String railOprIsttCd;
     String lnCd;
@@ -49,6 +51,8 @@ public class StationInfoActivity extends AppCompatActivity implements OnMapReady
     LinearLayout StationDisabledToiletLayout;
     LinearLayout stationElevatorLayout;
     LinearLayout stationGateLayout;
+    LinearLayout moveLayout1;
+    LinearLayout moveLayout2;
 
     GoogleMap mMap;
     private Geocoder geocoder;
@@ -75,6 +79,9 @@ public class StationInfoActivity extends AppCompatActivity implements OnMapReady
         stationElevatorLayout=(LinearLayout)findViewById(R.id.elevatorLayout);
         stationGateLayout=(LinearLayout)findViewById(R.id.stationGateLayout);
 
+        moveLayout1=(LinearLayout)findViewById(R.id.moveLayout1);
+        moveLayout2=(LinearLayout)findViewById(R.id.moveLayout2);
+
         stationNm.setText(stinNm);
 
         stationInfo=new StationInfo(railOprIsttCd,lnCd,stinCd,stinNm);
@@ -87,6 +94,8 @@ public class StationInfoActivity extends AppCompatActivity implements OnMapReady
         stationElevator.setStationElevator(stationElevatorLayout,this);
         stationGateInfo=new StationGateInfo(railOprIsttCd,lnCd,stinCd);
         stationGateInfo.setStationGateInfo(stationGateLayout,this);
+        trafficWeekInfo=new TrafficWeekInfo(railOprIsttCd,lnCd,stinCd);
+        trafficWeekInfo.setTrafficWeekInfo(this,moveLayout1,moveLayout2);
 
         setMapView();
 

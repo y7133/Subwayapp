@@ -52,7 +52,6 @@ public class Menu3Frag extends Fragment{
                 f.openExel(getActivity());
                 final ArrayList<Station> stationList=f.findStation(stationKey);
 
-
                 for(int i=0;i<stationList.size();i++){
                     TextView locationText=new TextView(view.getContext());
                     TextView lineText=new TextView(view.getContext());
@@ -103,7 +102,4 @@ public class Menu3Frag extends Fragment{
         return view;
     }
 
-    public void onClick(Station station){
-        Log.e(station.STIN_NM,station.RAIL_OPR_ISTT_NM);
-    }
 }
