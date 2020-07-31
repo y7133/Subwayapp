@@ -16,16 +16,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="#FFC107"
             android:gravity="center"
-            android:text="TextView"
-            android:textSize="30dp" />
+            android:text="역사 내 편의시설 정보"
+            android:textSize="30dp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="#F8F8F7">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -133,6 +136,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="#F3D06A"
                         android:text="역사별 화장실 정보"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -211,6 +215,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="#F3D06A"
                         android:text="장애인 화장실 정보"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -289,6 +294,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="#F3D06A"
                         android:text="엘레베이터 정보"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -367,6 +373,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:background="#F3D06A"
                         android:text="출구 정보"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -441,6 +448,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="#F3D06A"
                     android:text="교통 약자 역사 내 엘레베이터 이동동선"
                     android:textStyle="bold" />
 

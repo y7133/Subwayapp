@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".Menu4Frag">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,7 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@android:color/darker_gray"
+                    android:background="@android:color/holo_orange_light"
                     android:gravity="center"
                     android:text="경로 찾기"
                     android:textSize="30dp"
@@ -36,8 +38,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="3.5"
                 android:layout_margin="10dp"
+                android:layout_weight="3.5"
                 android:orientation="horizontal">
 
                 <RadioGroup
@@ -106,6 +108,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="#FFFFFF"
                         android:text="출발역"
                         android:textStyle="bold" />
 
@@ -113,13 +116,15 @@
                         android:id="@+id/imageView3"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1.5" />
+                        android:layout_weight="1.5"
+                        android:background="#FFFFFF" />
 
                     <TextView
                         android:id="@+id/textView35"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="#FFFFFF"
                         android:text="도착역"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -137,6 +142,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
 
+                        android:background="#FFFFFF"
                         android:text="" />
 
                     <ImageView
@@ -144,6 +150,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1.5"
+                        android:background="#ffff"
                         android:src="@android:drawable/ic_menu_send" />
 
                     <TextView
@@ -151,6 +158,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:background="#FFFFFF"
                         android:text="" />
                 </LinearLayout>
 
@@ -159,6 +167,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:background="#FFC107"
                     android:text="검색" />
 
             </LinearLayout>
@@ -204,8 +213,8 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:ems="10"
-                                android:selectAllOnFocus="true"
                                 android:inputType="textPersonName"
+                                android:selectAllOnFocus="true"
                                 android:text="출발역 입력" />
 
                             <Button
@@ -213,6 +222,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
+                                android:background="#FFC107"
                                 android:text="검색" />
 
                         </LinearLayout>
@@ -247,8 +257,8 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:ems="10"
-                                android:selectAllOnFocus="true"
                                 android:inputType="textPersonName"
+                                android:selectAllOnFocus="true"
                                 android:text="도착역 입력" />
 
                             <Button
@@ -256,6 +266,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="2"
+                                android:background="#FFC107"
                                 android:text="검색" />
 
                         </LinearLayout>

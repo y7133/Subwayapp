@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFC107"
     tools:context=".Menu3Frag">
 
     <!-- TODO: Update blank fragment layout -->
@@ -11,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
+        android:background="#FBFBFB"
         android:orientation="vertical">
 
         <LinearLayout
@@ -36,15 +38,16 @@
             android:id="@+id/stationListLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:orientation="vertical" >
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
+                android:background="#FFC107"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -53,20 +56,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="지역" />
+                    android:text="지역"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="호선" />
+                    android:text="호선"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/textView5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:background="#FFC107"
                     android:text="역 이름" />
 
             </LinearLayout>
@@ -74,7 +80,8 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1">
+                android:layout_weight="1"
+                android:background="#FFFFFF">
 
                 <LinearLayout
                     android:id="@+id/stationList"
