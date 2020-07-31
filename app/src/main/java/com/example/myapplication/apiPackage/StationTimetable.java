@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+//이 부분 어덯게 해야할지 모르겠음
 
 public class StationTimetable {
     private static final String SERVER_URL = "http://openapi.kric.go.kr/openapi/";
