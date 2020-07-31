@@ -10,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
@@ -84,7 +85,7 @@ public class StationTimetable {
 
     }
 
-    public void setStationTimetable(TextView textView) {
+    public void setStationTimetable(final TextView textView, final String time) {
         final String url = SERVER_URL + CLASSIFICATION + "/" + INFORMATION +
                 "?serviceKey=" + SERVICE_KEY + "&format=" + FORMAT +
                 "&railOprIsttCd=" + railOprIsttCd + "&lnCd=" + lnCd + "&stinCd=" + stinCd+"&dayCd="+dayCd;
@@ -96,13 +97,32 @@ public class StationTimetable {
                 JSONArray jsonArray= null;
                 try {
                     jsonArray = response.getJSONArray("body");
+
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        arvTm.add(jsonObject.getInt("arvTm"));
-                        dptTm.add(jsonObject.getInt("dptTm"));
-                        orgStinCd.add(jsonObject.getString("orgStinCd"));
-                        tmnStinCd.add(jsonObject.getString("tmnStinCd"));
-                        trnNo.add(jsonObject.getString("trnNo"));
+
+                        if(!jsonObject.getString("dayCd").equals(dayCd))
+                            continue;
+
+                        int timeI= Integer.valueOf(time);
+                        String arvTm= jsonObject.isNull("arvTm")?"999999":String.valueOf(jsonObject.getInt("arvTm"));
+
+                        if(timeI>Integer.valueOf(arvTm)){
+                            continue;
+                        }
+
+                        if(jsonObject.isNull("dptTm")){
+                            textView.setText("도착 정보가 없습니다.");
+                        }
+                        else if((jsonObject.getInt("dptTm")-timeI)/100<0){
+                            textView.setText("도착 정보가 없습니다.");
+                        }
+                        else{
+                            Log.e(time,String.valueOf(jsonObject.getInt("dptTm")));
+                            int remainTime=(jsonObject.getInt("dptTm")-timeI)/100;
+                            textView.setText( String.valueOf(remainTime)+"분 후 도착");
+                        }
+                        break;
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

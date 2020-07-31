@@ -39,6 +39,8 @@ public class Menu1Frag extends Fragment {
 
     ArrayList<Station> station;
 
+    String time_s;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_menu1_frag_growth, container, false);
@@ -50,9 +52,10 @@ public class Menu1Frag extends Fragment {
         station=m.findStation();
 
         for(int i=0;i<station.size();i++){
+            stationTimetable = createTimeTable(i);
             TextView locationText=new TextView(view.getContext());
             TextView lineText=new TextView(view.getContext());
-            TextView stationText=new TextView(view.getContext());
+            TextView timeText=new TextView(view.getContext());
             LinearLayout linearLayout=new LinearLayout(view.getContext());
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
             linearLayout.setPadding(0,10,0,10);
@@ -63,15 +66,16 @@ public class Menu1Frag extends Fragment {
 
             locationText.setLayoutParams(params);
             lineText.setLayoutParams(params);
-            stationText.setLayoutParams(params);
+            timeText.setLayoutParams(params);
 
-            locationText.setText(station.get(i).RAIL_OPR_ISTT_NM);
-            lineText.setText(station.get(i).LN_NM);
-            stationText.setText(station.get(i).STIN_NM);
+            locationText.setText(station.get(i).LN_NM);
+            lineText.setText(station.get(i).STIN_NM);
+            stationTimetable.setStationTimetable(timeText,time_s);
 
             linearLayout.addView(locationText);
             linearLayout.addView(lineText);
-            linearLayout.addView(stationText);
+            linearLayout.addView(timeText);
+
 
             final int index=i;
 
@@ -93,16 +97,14 @@ public class Menu1Frag extends Fragment {
         return view;
     }
 
-    private void printList(int i){
+    private StationTimetable createTimeTable(int i){
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat weekdayFormat = new SimpleDateFormat("EE");
-        SimpleDateFormat hour=new SimpleDateFormat("HH");
-        SimpleDateFormat minuteFormat=new SimpleDateFormat("mm");
+        SimpleDateFormat timeFormat=new SimpleDateFormat("HHmmss");
 
         String week_s=weekdayFormat.format(date);
-        String hour_s=hour.format(date);
-        String minute_s=minuteFormat.format(date);
+        time_s=timeFormat.format(date);
 
         String dayCd;
         if(week_s.equals("토")){
@@ -114,7 +116,8 @@ public class Menu1Frag extends Fragment {
         else{
             dayCd="8";
         }
-        stationTimetable=new StationTimetable(station.get(i).RAIL_OPR_ISTT_CD,station.get(i).LN_CD,station.get(i).STIN_CD,dayCd);
+
+        return new StationTimetable(station.get(i).RAIL_OPR_ISTT_CD,station.get(i).LN_CD,station.get(i).STIN_CD,dayCd);
 
     }
 
